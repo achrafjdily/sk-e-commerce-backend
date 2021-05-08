@@ -45,4 +45,10 @@ class LoginController extends Controller
             return response($response, 422);
         }
     }
+
+    public function logout(Request $request)
+    {
+        $request->user()->token()->revoke();
+        return response()->json(true);
+    }
 }

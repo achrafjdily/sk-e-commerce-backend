@@ -25,9 +25,12 @@ Route::group([
             'namespace' => 'Auth',
             'as' => 'auth.',
             'prefix' => 'auth'
-         ],
+        ],
         function () {
             Route::post('login', [LoginController::class, 'login'])->name('login');
+            Route::group(['middleware' => ['auth:api']], function () {
+                Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+            });
         }
     );
 });
